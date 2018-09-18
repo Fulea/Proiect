@@ -7,10 +7,10 @@
 		<ons-button modifier="large" id="decl">Activitate nouă</ons-button>
 	</p>
 	<script>
-        let tab3 = document.querySelector("#tab3");
-        let codact = localStorage.getItem("codact");
+        var tab3 = document.querySelector("#tab3");
+        var codact = localStorage.getItem("codact");
         if (codact) {
-            let imagine = document.querySelector('#qrcode2');
+            var imagine = document.querySelector('#qrcode2');
             imagine.innerHTML = ""; //  Golesc blocul #qrcode2
             //  Desenez codul in blocul #qrcode2
             new QRCode(imagine, {
@@ -31,9 +31,9 @@
 
             // S-au primit date de la scriptul de pe server
             request.onload = function () {
-                let imagine = document.querySelector('#qrcode2');
+                var imagine = document.querySelector('#qrcode2');
                 imagine.innerHTML = "";  //  Golesc blocul #qrcode2
-                let obj = JSON.parse(this.responseText);
+                var obj = JSON.parse(this.responseText);
                 //  ons.notification.alert('Cod ' + obj.codact);
                 //  Desenez noul cod QR in blocul #qrcode2
                 new QRCode(imagine, {

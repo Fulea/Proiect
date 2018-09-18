@@ -14,19 +14,19 @@
 			<option value="c">litera C</option>
 			<option value="d">litera D</option>
 			<option value="e">litera E</option>
-			<option value="f">F</option>
+			<option value="f">litera F</option>
 		</ons-select>
 		<ons-fab id="adauga" style="margin-left: 20px;">
 			<ons-icon icon="md-plus"></ons-icon>
 		</ons-fab>
 	</p>
 	<script>
-         let tab2 = document.querySelector("#tab2");
+         var tab2 = document.querySelector("#tab2");
          //  La afisare afisez codul act. curente (daca exista!)
          tab2.onShow = function() {
             var codact = localStorage.getItem("codact");
             if (codact) {
-               let imagine = this.querySelector('#qrcode1');
+               var imagine = this.querySelector('#qrcode1');
                imagine.innerHTML = ""; //  Golesc blocul #qrcode1
                //  Desenez codul in blocul #qrcode
                new QRCode(imagine, {
@@ -42,7 +42,7 @@
 
       document.querySelector("#scan").onclick = function () {
          window.plugins.barcodeScanner.scan(function (result) {
-            let imagine = this.querySelector('#qrcode1');
+            var imagine = this.querySelector('#qrcode1');
             imagine.innerHTML = ""; //  Golesc blocul #qrcode1
             new QRCode(imagine, {
                text: result.text,
