@@ -1,16 +1,16 @@
 <ons-page id="tab3">
-	<ons-toolbar>
-		<div class="center" id="toolbar-title">Activitate nouă</div>
-	</ons-toolbar>
-	<div id="qrcode2" style="margin: 10px auto; width: 200px; height: 200px;"></div>
-	<p style="padding: 10px">
-		<ons-button modifier="large" id="decl">Activitate nouă</ons-button>
-	</p>
-	<script>
-        let tab3 = document.querySelector("#tab3");
-        let codact = localStorage.getItem("codact");
+    <ons-toolbar>
+        <div class="center" id="toolbar-title">Activitate nouă</div>
+    </ons-toolbar>
+    <div id="qrcode2" style="margin: 10px auto; width: 200px; height: 200px;"></div>
+    <p style="padding: 10px">
+        <ons-button modifier="large" id="decl">Activitate nouă</ons-button>
+    </p>
+    <script>
+        var tab3 = document.querySelector("#tab3");
+        var codact = localStorage.getItem("codact");
         if (codact) {
-            let imagine = document.querySelector('#qrcode2');
+            var imagine = document.querySelector('#qrcode2');
             imagine.innerHTML = ""; //  Golesc blocul #qrcode2
             //  Desenez codul in blocul #qrcode2
             new QRCode(imagine, {
@@ -22,18 +22,18 @@
                 correctLevel: QRCode.CorrectLevel.H
             });
         }
-
         //  Declarare activitate noua
         document.querySelector("#decl").onclick = function () {
             //  AJAX: Apelez scriptul "adactiv.php"
             var request = new XMLHttpRequest();
+            var formData = new FormData();
+            formData.append('uid', device.uuid);
             request.open("POST", "http://aplimob.net/proiect/adactiv.php");
-
             // S-au primit date de la scriptul de pe server
             request.onload = function () {
-                let imagine = document.querySelector('#qrcode2');
+                var imagine = document.querySelector('#qrcode2');
                 imagine.innerHTML = "";  //  Golesc blocul #qrcode2
-                let obj = JSON.parse(this.responseText);
+                var obj = JSON.parse(this.responseText);
                 //  ons.notification.alert('Cod ' + obj.codact);
                 //  Desenez noul cod QR in blocul #qrcode2
                 new QRCode(imagine, {
@@ -44,17 +44,16 @@
                     colorLight: "#ffffff",
                     correctLevel: QRCode.CorrectLevel.H
                 });
-
                 //  Memorez noul codact
                 localStorage.setItem("codact", obj.codact);
+                //  Alert activitate inregistrata
+                ons.notification.alert('Activitate inregistrată cu succes.');
             };
-
             // S-a produs o eroare
             request.onerror = function () {
                 alert('Hopa! Ceva n-a mers!');
             };
-
-            request.send();
+            request.send(formData);
         };
-	</script>
+    </script>
 </ons-page>

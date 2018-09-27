@@ -8,8 +8,9 @@
         ons.ready(function () {
             console.log("Onsen UI is ready!");
             navigator.geolocation.getCurrentPosition(succes, eroare);
+            var devid = device.uuid;
+            ons.notification.alert('Device uuid: '+ devid);
         });
-
         function addMarkers() {
             var membrii = [];
             membrii.push({
@@ -20,7 +21,6 @@
                 map: map,
                 label: 'A'
             });
-
             membrii.push({
                 position: {
                     lat: 46.771228,
@@ -29,24 +29,21 @@
                 map: map,
                 label: 'B'
             });
-
             for (var i = 0; i < membrii.length; i++) {
                 var marker = new google.maps.Marker(membrii[i]);
             }
         }
-
+        var centru;
         function succes(position) {
-            let centru = {
+            centru = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
             //  Afisez harta
             map = new google.maps.Map(document.getElementById('map'),
                {
                    center: centru, zoom: 15
                });
-
             var marker = new google.maps.Marker({
                 position: centru,
                 map: map,
@@ -55,7 +52,6 @@
             //  Apelez addMarkers()
             addMarkers();
         }
-
         function eroare(error) { }
 	</script>
 </ons-page>
